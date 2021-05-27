@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
                              style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 10,
-                               color: Colors.grey
+                               color: Colors.grey.shade600
                             ),
                           ),
                         ],
