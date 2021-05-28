@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './transaction.dart';
 
 void main() {
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
           title: Text('Personal Expenses'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               width: double.infinity,
@@ -31,14 +33,37 @@ class MyApp extends StatelessWidget {
                 elevation: 5,
               ),
             ),
+            Card(
+              elevation: 5,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('Add Transaction'),
+                      textColor: Colors.purple.shade400,
+                    )
+                  ],
+                ),
+              ),
+            ),
             Column(
               children: transaction.map((tx) {
                 return Card(
+                  elevation: 5,
                   child: Row(
                     children: [
                       Container(
                         child: Text(
-                           '\$${tx.amount}',
+                          '\$ ${tx.amount}',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -68,12 +93,11 @@ class MyApp extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            tx.date.toString(),
-                             style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 10,
-                               color: Colors.grey.shade600
-                            ),
+                            DateFormat.yMMMd().format(tx.date),
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 10,
+                                color: Colors.grey.shade600),
                           ),
                         ],
                       ),
