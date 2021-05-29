@@ -13,6 +13,10 @@ class MyApp extends StatelessWidget {
     Transaction(
         id: 't2', title: 'New Phone', date: DateTime.now(), amount: 199.4),
   ];
+  // String titleInput;
+  // String amountInput;
+  final titlecontroller = TextEditingController();
+  final amountcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +45,15 @@ class MyApp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     TextField(
+                      // onChanged: (val)=>titleInput= val,
+                      controller: titlecontroller,
                       decoration: InputDecoration(labelText: 'Title'),
                     ),
                     TextField(
+                      // onChanged: (val){
+                      //   // amountInput = val; 
+                      // },
+                      controller: amountcontroller,
                       decoration: InputDecoration(labelText: 'Amount'),
                     ),
                     FlatButton(
