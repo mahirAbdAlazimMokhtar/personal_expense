@@ -1,13 +1,46 @@
 import 'package:flutter/material.dart';
-import './user_transaction.dart';
+import 'package:prtsonal_expenses/widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
+import 'Models/transaction.dart';
+import 'widgets/transaction_list.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // String titleInput;
-  // String amountInput;
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final List<Transaction> _userTransactions = [
+    Transaction(
+        id: 't1', title: 'New Shirt', date: DateTime.now(), amount: 99.4),
+    Transaction(
+        id: 't2', title: 'New Phone', date: DateTime.now(), amount: 199.4),
+  ];
+
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: txTitle,
+      date: DateTime.now(),
+      amount: txAmount,
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewTransaction(_addNewTransaction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +52,7 @@ class MyApp extends StatelessWidget {
               icon: Icon(
                 Icons.add,
               ),
-              onPressed: () {})
+              onPressed: () => _startAddNewTransaction(context))
         ],
         title: Text('Personal Expenses'),
       ),
@@ -36,7 +69,7 @@ class MyApp extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            UserTRansaction()
+            TransactionList(_userTransactions),
           ],
         ),
       ),
@@ -45,7 +78,7 @@ class MyApp extends StatelessWidget {
         child: Icon(
           Icons.add,
         ),
-        onPressed: () {},
+        onPressed: () => _startAddNewTransaction(context),
       ),
     ));
   }
