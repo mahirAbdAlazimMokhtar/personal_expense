@@ -14,6 +14,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  MediaQueryData media;
   final List<Transaction> _userTransactions = [
     Transaction(
         id: 't1', title: 'New Shirt', date: DateTime.now(), amount: 99.4),
@@ -38,14 +40,24 @@ class _MyAppState extends State<MyApp> {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return NewTransaction(_addNewTransaction);
+          return GestureDetector(
+            onTap: () {
+               final snackBar = SnackBar(content: Text('Tap'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            },
+            behavior: HitTestBehavior.opaque,
+            child: NewTransaction(_addNewTransaction),
+          );
         });
   }
 
   @override
   Widget build(BuildContext context) {
+   
     return MaterialApp(
+    
         home: Scaffold(
+        
       appBar: AppBar(
         actions: [
           IconButton(
@@ -66,14 +78,14 @@ class _MyAppState extends State<MyApp> {
               child: Card(
                 color: Colors.purple,
                 child: Text('CHART !'),
-                elevation: 5,
+                elevation: 10,
               ),
             ),
             TransactionList(_userTransactions),
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
